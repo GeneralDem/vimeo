@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galerie test union améliorée</title>
+  <style>
+    body {
+      font-family: sans-serif; 
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-image:
+        linear-gradient(135deg, rgba(255,105,180,0.6), rgba(138,43,226,0.6)),
+        url('images/fond.jpg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    h1 {
+      padding: 20px;
+      user-select: none;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7); /* Effet ombré ajouté */
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .video-card {
+      width: 250px;
+      cursor: pointer;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s;
+      background-color: #222;
+      user-select: none;
+      outline: none;
+    }
+    .video-card:hover,
+    .video-card:focus {
+      transform: scale(1.05);
+      border-color: #ff69b4;
+      box-shadow: 0 0 8px #ff69b4;
+    }
+    .video-card img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #444;
+    }
+    .video-card p {
+      margin: 0;
+      padding: 10px;
+      color: #ff69b4;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      flex-direction: column;
+    }
+    .modal iframe {
+      width: 80vw;
+      height: 45vw;
+      max-width: 960px;
+      max-height: 540px;
+      border: none;
+      border-radius: 8px;
+      background: black;
+    }
+    .close-btn {
+      background: #ff69b4;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+    .close-btn:hover {
+      background: #d0459d;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>VIDEO UNION ESTIVAL</h1>
+
+  <div class="gallery" id="gallery" role="list"></div>
+
+  <div class="modal" id="videoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="close-btn" aria-label="Fermer la vidéo" id="closeBtn">&times; Fermer</button>
+    <iframe id="videoFrame" allow="autoplay; fullscreen" allowfullscreen title="Player Vimeo"></iframe>
+  </div>
+
+  <script>
+    const videos = [
+      { id: '1074192274', title: "J'peux vous prendre...", thumbnail: 'images/vignette1.jpg' },
+      { id: '1074192213', title: 'Le paradis sur terre', thumbnail: 'images/vignette2.jpg' },
+      { id: '1074292077', title: "Les vacances d'Anissa Kate", thumbnail: 'images/vignette3.jpg' },
+      { id: '1074191591', title: 'Oh! Mon bateau', thumbnail: 'images/vignette4.jpg' },
+      { id: '1074191489', title: 'On se jette à l\'eau', thumbnail: 'images/vignette5.jpg' },
+      { id: '1084537', title: 'Où sont les femmes ?', thumbnail: 'images/vignette6.jpg' },
+      { id: '1084657', title: 'Souvenirs de vacances', thumbnail: 'images/vignette7.jpg' },
+      { id: '146018561', title: 'Spécial amat', thumbnail: 'images/vignette8.jpg' },
+      { id: '128710162', title: 'Trinquons', thumbnail: 'images/vignette9.jpg' },
+      { id: '104147441', title: 'Vacances libertines', thumbnail: 'images/vignette10.jpg' },
+      { id: '146022717', title: 'Vero nique Sahlina', thumbnail: 'images/vignette11.jpg' }
+    ];
+
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('videoFrame');
+    const closeBtn = document.getElementById('closeBtn');
+
+    videos.forEach(video => {
+      const card = document.createElement('div');
+      card.className = 'video-card';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `Ouvrir la vidéo : ${video.title}`);
+
+      card.onclick = () => openVideo(video.id);
+      card.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') openVideo(video.id); };
+
+      const img = document.createElement('img');
+      img.src = video.thumbnail;
+      img.alt = video.title;
+      img.loading = 'lazy';
+
+      const title = document.createElement('p');
+      title.innerHTML = `<strong>${video.title}</strong>`;
+
+      card.appendChild(img);
+      card.appendChild(title);
+      gallery.appendChild(card);
+    });
+
+    function openVideo(videoId) {
+      iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
+      modal.style.display = 'flex';
+      closeBtn.focus();
+    }
+
+    function closeVideo() {
+      iframe.src = '';
+      modal.style.display = 'none';
+      gallery.querySelector('.video-card').focus();
+    }
+
+    closeBtn.onclick = closeVideo;
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeVideo(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.style.display === 'flex') closeVideo(); });
+  </script>
+
+</body>
+</html>
