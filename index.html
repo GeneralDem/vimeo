@@ -111,137 +111,134 @@
     ></iframe>
   </div>
 
-  <script>
-    const videos = [
-      {
-        id: '1074192274',
-        title: "J'peux vous prendre...",
-        subtitle: "En photos, mais pas que",
-        thumbnail: 'images/vignette1.jpg',
-      },
-      {
-        id: '1074192213',
-        title: 'Le paradis sur terre',
-        subtitle: 'Les gorges "profondes" du Verdon',
-        thumbnail: 'images/vignette2.jpg',
-      },
-      {
-        id: '1074292077',
-        title: "Les vacances d'Anissa Kate",
-        subtitle: '"Masse-moi en profondeur"',
-        thumbnail: 'images/vignette3.jpg',
-      },
-      {
-        id: '1074191591',
-        title: 'Oh! Mon bateau',
-        subtitle: 'Ma grosse bite d\'amarrage',
-        thumbnail: 'images/vignette4.jpg',
-      },
-      {
-        id: '1074191489',
-        title: 'On se jette à l\'eau',
-        subtitle: 'Et je te suce la bite',
-        thumbnail: 'images/vignette5.jpg',
-      },
-      {
-        id: '1084537',
-        title: 'Où sont les femmes ?',
-        subtitle: 'Trois moules et une piscine',
-        thumbnail: 'images/vignette6.jpg'
-      },
-      {
-        id: '1084657',
-        title: 'Souvenirs de vacances',
-        subtitle: 'Comme dans un porno',
-        thumbnail: 'images/vignette7.jpg'
-      },
-      {
-        id: '146018561',
-        title: 'Spécial amat',
-        subtitle: 'Sur la plage abandonnée',
-        thumbnail: 'images/vignette8.jpg'
-      },
-      {
-        id: '128710162',
-        title: 'Trinquons',
-        subtitle: 'Et baisons aussi !',
-        thumbnail: 'images/vignette9.jpg',
-      },
-      {
-        id: '104147441',
-        title: 'Vacances libertines',
-        subtitle: 'Cap ou pas cap !',
-        thumbnail: 'images/vignette10.jpg',
-      },
-      {
-        id: '146022717',
-        title: 'Vero nique Sahlina',
-        subtitle: 'C\'est la mer qui prend la femme',
-        thumbnail: 'images/vignette11.jpg'
-      },
-    ];
+<script>
+const videos = [
+  {
+    id: '1074192274',
+    title: "J'peux vous prendre...",
+    subtitle: "En photos, mais pas que",
+    thumbnail: 'images/vignette1.jpg',
+  },
+  {
+    id: '1074192213',
+    title: 'Le paradis sur terre',
+    subtitle: 'Les gorges "profondes" du Verdon',
+    thumbnail: 'images/vignette2.jpg',
+  },
+  {
+    id: '1074292077',
+    title: "Les vacances d'Anissa Kate",
+    subtitle: '"Masse-moi en profondeur"',
+    thumbnail: 'images/vignette3.jpg',
+  },
+  {
+    id: '1074191591',
+    title: 'Oh! Mon bateau',
+    subtitle: "Ma grosse bite d'amarrage",
+    thumbnail: 'images/vignette4.jpg',
+  },
+  {
+    id: '1074191489',
+    title: 'On se jette à l\'eau',
+    subtitle: 'Et je te suce la bite',
+    thumbnail: 'images/vignette5.jpg',
+  },
+  {
+    id: '1084537',
+    title: 'Où sont les femmes ?',
+    subtitle: 'Trois moules et une piscine',
+    thumbnail: 'images/vignette6.jpg'
+  },
+  {
+    id: '1084657',
+    title: 'Souvenirs de vacances',
+    subtitle: 'Comme dans un porno',
+    thumbnail: 'images/vignette7.jpg'
+  },
+  {
+    id: '146018561',
+    title: 'Spécial amat',
+    subtitle: 'Sur la plage abandonnée',
+    thumbnail: 'images/vignette8.jpg'
+  },
+  {
+    id: '128710162',
+    title: 'Trinquons',
+    subtitle: 'Et baisons aussi !',
+    thumbnail: 'images/vignette9.jpg',
+  },
+  {
+    id: '104147441',
+    title: 'Vacances libertines',
+    subtitle: 'Cap ou pas cap !',
+    thumbnail: 'images/vignette10.jpg',
+  },
+  {
+    id: '146022717',
+    title: 'Vero nique Sahlina',
+    subtitle: 'C\'est la mer qui prend la femme',
+    thumbnail: 'images/vignette11.jpg'
+  },
+];
 
-    const gallery = document.getElementById('gallery');
-    const modal = document.getElementById('videoModal');
-    const iframe = document.getElementById('videoFrame');
-    const closeBtn = document.getElementById('closeBtn');
+const gallery = document.getElementById('gallery');
+const modal = document.getElementById('videoModal');
+const iframe = document.getElementById('videoFrame');
+const closeBtn = document.getElementById('closeBtn');
 
-    videos.forEach(video => {
-      const card = document.createElement('div');
-      card.className = 'video-card';
-      card.tabIndex = 0;
-      card.setAttribute('role', 'button');
-      card.setAttribute('aria-label', `Ouvrir la vidéo : ${video.title}`);
+videos.forEach(video => {
+  const card = document.createElement('div');
+  card.className = 'video-card';
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `Ouvrir la vidéo : ${video.title}`);
 
-      card.onclick = () => openVideo(video.id);
-      card.onkeydown = (e) => {
-        if (e.key === 'Enter' || e.key === ' ') openVideo(video.id);
-      };
+  card.onclick = () => openVideo(video.id);
+  card.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') openVideo(video.id); };
 
-      const img = document.createElement('img');
-      img.src = video.thumbnail;
-      img.alt = video.title;
-      img.loading = 'lazy';
+  const img = document.createElement('img');
+  img.src = video.thumbnail;
+  img.alt = video.title;
+  img.loading = 'lazy';
 
-      const text = document.createElement('div');
-      text.className = 'video-text';
+  const text = document.createElement('div');
+  text.className = 'video-text';
 
-      const title = document.createElement('div');
-      title.className = 'video-title';
-      title.textContent = video.title;
+  const title = document.createElement('div');
+  title.className = 'video-title';
+  title.textContent = video.title;
 
-      const subtitle = document.createElement('div');
-      subtitle.className = 'video-subtitle';
-      subtitle.textContent = video.subtitle;
+  const subtitle = document.createElement('div');
+  subtitle.className = 'video-subtitle';
+  subtitle.textContent = video.subtitle;
 
-      text.appendChild(title);
-      text.appendChild(subtitle);
+  text.appendChild(title);
+  text.appendChild(subtitle);
+  card.appendChild(img);
+  card.appendChild(text);
 
-      card.appendChild(img);
-      card.appendChild(text);
+  gallery.appendChild(card);
+});
 
-      gallery.appendChild(card);
-    });
+function openVideo(videoId) {
+  iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
+  modal.style.display = 'flex';
+  closeBtn.focus();
+}
 
-    function openVideo(videoId) {
-      iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
-      modal.style.display = 'flex';
-      closeBtn.focus();
-    }
+function closeVideo() {
+  iframe.src = '';
+  modal.style.display = 'none';
+}
 
-    function closeVideo() {
-      iframe.src = '';
-      modal.style.display = 'none';
-    }
-
-    closeBtn.onclick = closeVideo;
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeVideo();
-    });
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') closeVideo();
-    });
-  </script>
+closeBtn.onclick = closeVideo;
+modal.addEventListener('click', (e) => { if (e.target === modal) closeVideo(); });
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.style.display === 'flex') {
+    closeVideo();
+  }
+});
+</script>
 
 </body>
 </html>
